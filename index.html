@@ -8,14 +8,23 @@
 </head>
 <body>
   <div id="app">
-    <div id="test"></div>
+    <div id="test">{{test}}</div>
+    <div r-text="test"></div>
   </div>
   <script src="./rvue.js"></script>
   <script>
     var app = new Rvue({
+      el: 'app',
       data: {
-        test: 'nnn'
+        test: 'nnn',
+        foo: {
+          a: 1
+        }
       },
+      created () {
+
+      },
+      
       mounted () {
 
       },
@@ -25,9 +34,9 @@
     })
     setTimeout(() => {
       app.test = 'aaa'
+      // app.foo.a = 2
       console.log(app.test);
     }, 1000)
-    console.log(app.test);
     
   </script>
 </body>
