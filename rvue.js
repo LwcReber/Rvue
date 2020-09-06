@@ -2,8 +2,11 @@ class Rvue {
   constructor (options) {
     this.$data = options.data
     this.vm = this
-    new Watcher()
     this.initData(this.$data)
+    new Compile(options.$el, this)
+    if (options.created) {
+      options.created.call(this)
+    }
   }
   initData (value) {
     var keys = Object.keys(value)
@@ -31,7 +34,7 @@ class Observer {
   constructor (data) {
     this.initData(data)
   }
-  
+
   initData (data) {
     if (!data || typeof data !== 'object') {
       return
@@ -87,10 +90,16 @@ class Dep {
 
 
 class Watcher {
-  constructor () {
+  constructor (vm, key, callback) {
+    this.vm = vm
+    this.key = key
+    this.callback = callback
     Dep.target = this
+    this.vm[this.key] // 添加watcer到dep
+    Dep.target = null
   }
   update () {
+    this.callback && this.callback.call(this.vm, this.vm[this.key])
     console.log('属性更新')
   }
 }

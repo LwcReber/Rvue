@@ -8,13 +8,16 @@
 </head>
 <body>
   <div id="app">
+    fasdfdas
     <div id="test">{{test}}</div>
     <div r-text="test"></div>
+    {{test}}
   </div>
+  <script src="./compile.js"></script>
   <script src="./rvue.js"></script>
   <script>
     var app = new Rvue({
-      el: 'app',
+      $el: '#app',
       data: {
         test: 'nnn',
         foo: {
@@ -22,9 +25,10 @@
         }
       },
       created () {
-
+        console.log('created');
+        
       },
-      
+
       mounted () {
 
       },
